@@ -1,0 +1,6 @@
+builds:
+  - type: static
+    src: dist
+    routes:
+      - path: "/*"
+        dest: index.html

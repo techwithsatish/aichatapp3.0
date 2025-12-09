@@ -188,6 +188,7 @@ def analyze_sentiment():
 
 
 if __name__ == '__main__':
-    port = int(os.getenv("PORT", 9000))
-    print(f"🚀 Server running at http://127.0.0.1:{port}")
-    app.run(host="0.0.0.0", port=port, debug=True)
+    port = int(os.getenv("PORT", 10000))
+    debug = os.getenv("ENVIRONMENT", "development") == "development"
+    print(f"🚀 Server running at http://0.0.0.0:{port}")
+    app.run(host="0.0.0.0", port=port, debug=debug)

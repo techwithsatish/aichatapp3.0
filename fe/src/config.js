@@ -2,4 +2,4 @@ const isDevelopment = window.location.hostname === 'localhost' || window.locatio
 
 export const BACKEND_URL = isDevelopment 
   ? "http://127.0.0.1:10000" 
-  : "https://aichatapp-backend.onrender.com"; // Update with your actual backend URL from Render
+  : "https://aichatapp3-0.onrender.com/"; // Update with your actual backend URL from Render

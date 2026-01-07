@@ -72,7 +72,7 @@ export default function SentimentAnalysis() {
   return (
     <div className="p-6 bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-blue-900">📊 Sentiment Analysis</h2>
+        <h2 className="text-3xl font-bold mb-6 text-blue-900">📊 FeedBack Analysis</h2>
 
         {/* Input Section */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-6">

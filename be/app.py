@@ -15,10 +15,17 @@ CORS(app, resources={r"/*": {"origins": "*", "methods": ["GET", "POST", "OPTIONS
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # Print all available models
-print("🔍 Available Models:")
-for m in genai.list_models():
-    if "generateContent" in m.supported_generation_methods:
-        print(f"  ✅ {m.name}")
+import sys
+if sys.stdout.encoding and 'utf' in sys.stdout.encoding.lower():
+    print("🔍 Available Models:")
+    for m in genai.list_models():
+        if "generateContent" in m.supported_generation_methods:
+            print(f"  ✅ {m.name}")
+else:
+    print("Available Models:")
+    for m in genai.list_models():
+        if "generateContent" in m.supported_generation_methods:
+            print(f"  [OK] {m.name}")
 
 model = genai.GenerativeModel(model_name="gemini-2.5-flash")
 
@@ -73,11 +80,7 @@ def compare_pdfs():
 
 @app.route("/", methods=["GET"])
 def home():
-    return "🚀 Flask Gemini API is running! Available endpoints: /chat, /stream, /compare-pdfs, /summarize-pdf"
-
-
-from flask import Flask, request, Response, stream_with_context
-import time
+    return "Flask Gemini API is running! Available endpoints: /chat, /stream, /compare-pdfs, /summarize-pdf"
 
 @app.route("/stream", methods=["POST"])
 def stream():
@@ -99,7 +102,7 @@ def chat():
     chat_history = data.get('history', [])
     chat_session = model.start_chat(history=chat_history)
     response = chat_session.send_message(msg)
-    return {"text": response.text}
+    return jsonify({"text": response.text})
 
 @app.route("/summarize-pdf", methods=["POST"])
 def summarize_pdf():
@@ -190,5 +193,5 @@ def analyze_sentiment():
 if __name__ == '__main__':
     port = int(os.getenv("PORT", 10000))
     debug = os.getenv("ENVIRONMENT", "development") == "development"
-    print(f"🚀 Server running at http://0.0.0.0:{port}")
+    print(f"Server running at http://0.0.0.0:{port}")
     app.run(host="0.0.0.0", port=port, debug=debug)

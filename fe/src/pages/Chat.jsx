@@ -65,10 +65,21 @@ export default function Chat() {
     setIsTyping(true);
 
     try {
+      // Build chat history from previous messages (excluding the current one)
+      const history = messages
+        .filter(m => m.text && m.text.trim())
+        .map(m => ({
+          role: m.sender === "user" ? "user" : "model",
+          parts: [{ text: m.text }]
+        }));
+
       const res = await fetch(`${BACKEND_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat: userMsg.text }),
+        body: JSON.stringify({ 
+          chat: userMsg.text,
+          history: history
+        }),
       });
       const data = await res.json();
       const fullText = data.text || "";

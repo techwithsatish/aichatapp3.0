@@ -27,7 +27,7 @@ export default function Navbar() {
               to="/sentiment"
               className={({ isActive }) => `${linkBase} ${isActive ? activeClass : "hover:bg-white/10"}`}
             >
-              Sentiment
+              FeedBack
             </NavLink>
 
             <NavLink
